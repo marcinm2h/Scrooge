@@ -1,6 +1,5 @@
 package mmoch.scrooge.database
 
-import androidx.annotation.ColorLong
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
