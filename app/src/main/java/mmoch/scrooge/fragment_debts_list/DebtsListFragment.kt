@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import mmoch.scrooge.R
@@ -28,6 +29,7 @@ class DebtsListFragment : Fragment() {
         val viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(DebtsListViewModel::class.java)
         binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
 
         val action = DebtsListFragmentDirections.actionDebtsListFragmentToCreateEditDebtFragment(1)
 
