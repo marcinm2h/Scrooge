@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".pay_off_simulator.PayOffSimulatorFragment">
+        tools:context=".fragment_pay_off_simulator.PayOffSimulatorFragment">
 
         <TextView
             android:id="@+id/title_text"

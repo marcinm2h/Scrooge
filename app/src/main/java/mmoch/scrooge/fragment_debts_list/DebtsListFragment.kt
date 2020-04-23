@@ -1,14 +1,15 @@
-package mmoch.scrooge.debts_list
+package mmoch.scrooge.fragment_debts_list
 
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import mmoch.scrooge.R
+import mmoch.scrooge.database.DebtDatabase
 import mmoch.scrooge.databinding.FragmentDebtsListBinding
 
 class DebtsListFragment : Fragment() {
@@ -20,6 +21,13 @@ class DebtsListFragment : Fragment() {
         val binding: FragmentDebtsListBinding =
             DataBindingUtil.inflate(inflater,
                 R.layout.fragment_debts_list, container, false)
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = DebtDatabase.getInstance(application).debtDao()
+        val viewModelFactory = DebtsListViewModelFactory(dataSource)
+        val viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(DebtsListViewModel::class.java)
+        binding.viewModel = viewModel
 
         val action = DebtsListFragmentDirections.actionDebtsListFragmentToCreateEditDebtFragment(1)
 

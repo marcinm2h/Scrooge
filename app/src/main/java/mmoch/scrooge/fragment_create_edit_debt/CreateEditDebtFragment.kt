@@ -22,6 +22,7 @@ class CreateEditDebtFragment : Fragment() {
             DataBindingUtil.inflate(inflater,
                 R.layout.fragment_create_edit_debt, container, false)
 
+
         binding.titleText.text = args.debtId.toString()
 
         binding.buttonNext.setOnClickListener{

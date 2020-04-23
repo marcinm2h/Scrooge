@@ -1,4 +1,4 @@
-package mmoch.scrooge.pay_off_simulator
+package mmoch.scrooge.fragment_pay_off_simulator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import mmoch.scrooge.R
 import mmoch.scrooge.databinding.FragmentPayOffSimulatorBinding
-import mmoch.scrooge.debts_list.DebtsListFragmentDirections
 
 class PayOffSimulatorFragment : Fragment() {
 
