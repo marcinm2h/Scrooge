@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/debtsListFragment">
+
+    <fragment
+        android:id="@+id/debtsListFragment"
+        android:name="mmoch.scrooge.fragment_debts_list.DebtsListFragment"
+        android:label="DebtsListFragment" >
+        <action
+            android:id="@+id/action_debtsListFragment_to_createEditDebtFragment"
+            app:destination="@id/createEditDebtFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEditDebtFragment"
+        android:name="mmoch.scrooge.fragment_create_edit_debt.CreateEditDebtFragment"
+        android:label="CreateEditDebtFragment" >
+        <action
+            android:id="@+id/action_createEditDebtFragment_to_debtsListFragment"
+            app:destination="@id/debtsListFragment" />
+        <action
+            android:id="@+id/action_createEditDebtFragment_to_payOffSimulatorFragment"
+            app:destination="@id/payOffSimulatorFragment" />
+        <argument
+            android:name="debtId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/payOffSimulatorFragment"
+        android:name="mmoch.scrooge.fragment_pay_off_simulator.PayOffSimulatorFragment"
+        android:label="PayOffSimulatorFragment" >
+        <action
+            android:id="@+id/action_payOffSimulatorFragment_to_createEditDebtFragment"
+            app:destination="@id/createEditDebtFragment" />
+        <argument
+            android:name="debtId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
