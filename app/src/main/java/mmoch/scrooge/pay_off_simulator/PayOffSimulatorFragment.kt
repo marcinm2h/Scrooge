@@ -1,4 +1,4 @@
-package mmoch.scrooge.fragments
+package mmoch.scrooge.pay_off_simulator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import mmoch.scrooge.R
-import mmoch.scrooge.databinding.FragmentSecondBinding
+import mmoch.scrooge.databinding.FragmentPayOffSimulatorBinding
 
-class SecondFragment : Fragment() {
+class PayOffSimulatorFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentSecondBinding =
+        val binding: FragmentPayOffSimulatorBinding =
             DataBindingUtil.inflate(inflater,
-                R.layout.fragment_second, container, false)
+                R.layout.fragment_pay_off_simulator, container, false)
 
-        binding.button.setOnClickListener{
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        binding.buttonPrev.setOnClickListener{
+            findNavController().navigate(R.id.action_payOffSimulatorFragment_to_createEditDebtFragment)
         }
 
         return binding.root

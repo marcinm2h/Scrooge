@@ -1,4 +1,4 @@
-package mmoch.scrooge.fragments
+package mmoch.scrooge.debts_list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import mmoch.scrooge.R
-import mmoch.scrooge.databinding.FragmentFirstBinding
+import mmoch.scrooge.databinding.FragmentDebtsListBinding
 
-class FirstFragment : Fragment() {
+class DebtsListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentFirstBinding =
+        val binding: FragmentDebtsListBinding =
             DataBindingUtil.inflate(inflater,
-                R.layout.fragment_first, container, false)
+                R.layout.fragment_debts_list, container, false)
 
-        binding.button.setOnClickListener{
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.buttonNext.setOnClickListener{
+            findNavController().navigate(R.id.action_debtsListFragment_to_createEditDebtFragment)
         }
 
         return binding.root
