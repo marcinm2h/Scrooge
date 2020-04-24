@@ -11,4 +11,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="debts_list">Lista dłużników</string>
     <string name="coin_icon">Ikona monety</string>
+    <string name="create_edit_debtor">Dodaj / zmień dłużnika</string>
+    <string name="back">Wstecz</string>
+    <string name="save">Zapisz</string>
+    <string name="remind_debtor">Przypomnij dłużnikowi</string>
+    <string name="simulate">Symuluj spłatę</string>
 </resources>

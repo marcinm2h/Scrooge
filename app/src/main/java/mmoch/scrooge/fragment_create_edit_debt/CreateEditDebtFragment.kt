@@ -36,17 +36,17 @@ class CreateEditDebtFragment : Fragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        binding.onCreateButton.setOnClickListener{
-            viewModel.onCreate()
-        }
-
-        binding.titleText.text = args.debtId.toString()
-
-        binding.buttonNext.setOnClickListener{
+//        binding.onCreateButton.setOnClickListener{
+//            viewModel.onCreate()
+//        }
+//
+//        binding.titleText.text = args.debtId.toString()
+//
+        binding.simulateButton.setOnClickListener{
             findNavController().navigate(R.id.action_createEditDebtFragment_to_payOffSimulatorFragment)
         }
 
-        binding.buttonPrev.setOnClickListener{
+        binding.backButton.setOnClickListener{
             findNavController().navigate(R.id.action_createEditDebtFragment_to_debtsListFragment)
         }
 
