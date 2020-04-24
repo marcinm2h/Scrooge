@@ -40,6 +40,10 @@ class DebtsListFragment : Fragment() {
         binding.createDebtFab.setOnClickListener{
             findNavController().navigate(action)
         }
+//
+//        binding.createDebtFab.setOnLongClickListener{
+//            findNavController().navigateUp()
+//        }
 
 
         viewModel.debts.observe(viewLifecycleOwner, Observer {

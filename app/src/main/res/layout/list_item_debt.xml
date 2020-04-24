@@ -23,8 +23,10 @@
         android:clickable="true"
         android:focusable="true"
         android:longClickable="true"
+        android:orientation="vertical"
         android:onClick="@{()-> viewModel.onItemClick(item)}"
-        android:orientation="vertical">
+        android:onLongClick="@{(view) -> viewModel.onItemLongClick(item)}"
+        >
 
         <View
             android:id="@+id/border_top"
@@ -41,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_marginTop="4dp"
             android:textStyle="normal|bold"
-            app:debtorName="@{item}"
+            app:text="@{item.debtorName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
