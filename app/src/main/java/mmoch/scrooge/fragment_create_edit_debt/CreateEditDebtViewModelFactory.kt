@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import mmoch.scrooge.database.DebtDao
 
 class CreateEditDebtViewModelFactory(
-    private val dataSource: DebtDao
+    private val dataSource: DebtDao,
+    private val debtId: Int?
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CreateEditDebtViewModel::class.java)) {
-            return CreateEditDebtViewModel(dataSource) as T
+            return CreateEditDebtViewModel(dataSource, debtId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

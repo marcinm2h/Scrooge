@@ -42,7 +42,6 @@
             style="@style/list_item_value"
             android:layout_width="0dp"
             android:layout_marginTop="4dp"
-            android:textStyle="normal|bold"
             app:text="@{item.debtorName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
