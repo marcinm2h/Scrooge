@@ -29,6 +29,10 @@ class DebtsListFragment : Fragment() {
         val viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(DebtsListViewModel::class.java)
         binding.viewModel = viewModel
+
+        val adapter = DebtAdapter(viewModel)
+        binding.debtsListRecycler.adapter = adapter
+
         binding.setLifecycleOwner(this)
 
         val action = DebtsListFragmentDirections.actionDebtsListFragmentToCreateEditDebtFragment(1)
@@ -36,6 +40,13 @@ class DebtsListFragment : Fragment() {
         binding.createDebtFab.setOnClickListener{
             findNavController().navigate(action)
         }
+
+
+        viewModel.debts.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         return binding.root
     }

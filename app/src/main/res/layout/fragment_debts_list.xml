@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
->
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="mmoch.scrooge.fragment_debts_list.DebtsListViewModel" />
@@ -55,44 +55,30 @@
             app:layout_constraintStart_toEndOf="@+id/logo_image"
             app:layout_constraintTop_toTopOf="@+id/logo_image" />
 
-        <ScrollView
-            android:id="@+id/scrollView4"
-            android:layout_width="379dp"
-            android:layout_height="400dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo_image">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/debtors_list_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Marcin: 100.0_TODO_BIND"
-                    tools:text="Marcin: 100.0" />
-
-            </LinearLayout>
-        </ScrollView>
-
         <TextView
             android:id="@+id/summary_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:text="PODSUMOWANIE_TODO_BIND"
             app:layout_constraintEnd_toStartOf="@+id/create_debt_fab"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView4"
+            app:layout_constraintTop_toBottomOf="@+id/debts_list_recycler"
             tools:text="Podsumowanie" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/debts_list_recycler"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

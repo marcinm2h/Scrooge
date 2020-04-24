@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="mmoch.scrooge.database.Debt" />
+        <variable
+            name="viewModel"
+            type="mmoch.scrooge.fragment_debts_list.DebtsListViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/debt_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:clickable="true"
+        android:focusable="true"
+        android:longClickable="true"
+        android:onClick="@{()-> viewModel.onItemClick(item)}"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/border_top"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/debtor_name_text"
+            style="@style/list_item_value"
+            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
+            android:textStyle="normal|bold"
+            app:debtorName="@{item}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Andrzej Duda" />
+
+        <TextView
+            android:id="@+id/debt_amount_text"
+            style="@style/list_item_value"
+            android:layout_width="0dp"
+            android:layout_marginTop="8sp"
+            android:layout_marginBottom="4sp"
+            android:textStyle="normal"
+            app:debtAmount="@{item}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/debtor_name_text"
+            tools:text="10000.00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

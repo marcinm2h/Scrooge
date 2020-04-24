@@ -17,7 +17,7 @@ interface DebtDao {
     @Query("DELETE FROM debt_table")
     fun deleteAll()
 
-    @Query("SELECT * FROM debt_table ORDER BY id DESC")
+    @Query("SELECT * FROM debt_table ORDER BY id ASC")
     fun list(): LiveData<List<Debt>>
 
     @Query("SELECT * from debt_table WHERE id = :key")

@@ -36,9 +36,9 @@ class CreateEditDebtFragment : Fragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-//        binding.onCreateButton.setOnClickListener{
-//            viewModel.onCreate()
-//        }
+        binding.saveButton.setOnClickListener{
+            viewModel.onCreate()
+        }
 //
 //        binding.titleText.text = args.debtId.toString()
 //

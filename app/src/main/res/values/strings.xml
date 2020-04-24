@@ -19,4 +19,6 @@
     <string name="debt_pay_off_simulation">Symulacja spłaty długu</string>
     <string name="pay_off_speed">Prędkość spłaty (kwota / minutę)</string>
     <string name="interests">Odsetki</string>
+    <string name="debtor_name_label">Nazwa</string>
+    <string name="debt_amount_label">Dług</string>
 </resources>
