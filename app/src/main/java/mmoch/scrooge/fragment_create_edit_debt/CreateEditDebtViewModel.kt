@@ -36,6 +36,15 @@ class CreateEditDebtViewModel(
         _showSnackbarEvent.value = null
     }
 
+    private val _startShareIntentEvent = MutableLiveData<Debt?>()
+
+    val startShareIntentEvent: LiveData<Debt?>
+        get() = _startShareIntentEvent
+
+    fun doneStartedSharingIntent() {
+        _startShareIntentEvent.value = null
+    }
+
     init {
         uiScope.launch {
             if (debtId != null) {
@@ -45,6 +54,10 @@ class CreateEditDebtViewModel(
                 amountInput.value = debtFromDb.amount.toString()
             }
         }
+    }
+
+    fun onShare() {
+        _startShareIntentEvent.value = requireNotNull(debt.value)
     }
 
     fun onCreate() {

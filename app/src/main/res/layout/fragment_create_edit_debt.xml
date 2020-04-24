@@ -111,6 +111,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:onClick="@{() -> viewModel.onShare()}"
             android:text="@string/remind_debtor"
             app:goneUnless="@{viewModel.editType}"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package mmoch.scrooge.fragment_create_edit_debt
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,23 @@ class CreateEditDebtFragment : Fragment() {
             }
         })
 
+
+
+        viewModel.startShareIntentEvent.observe(viewLifecycleOwner, Observer { debt ->
+            if (debt != null) {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        getString(R.string.share_debt, debt.debtorName, debt.amount)
+                    )
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+                viewModel.doneStartedSharingIntent()
+            }
+        })
 
         binding.simulateButton.setOnClickListener {
             findNavController().navigate(R.id.action_createEditDebtFragment_to_payOffSimulatorFragment)
