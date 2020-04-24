@@ -22,7 +22,7 @@ class PayOffSimulatorFragment : Fragment() {
 
         val action = PayOffSimulatorFragmentDirections.actionPayOffSimulatorFragmentToCreateEditDebtFragment(2)
 
-        binding.buttonPrev.setOnClickListener{
+        binding.backButton.setOnClickListener{
             findNavController().navigate(action)
         }
 

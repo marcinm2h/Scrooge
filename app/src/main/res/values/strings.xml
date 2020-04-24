@@ -16,4 +16,7 @@
     <string name="save">Zapisz</string>
     <string name="remind_debtor">Przypomnij dłużnikowi</string>
     <string name="simulate">Symuluj spłatę</string>
+    <string name="debt_pay_off_simulation">Symulacja spłaty długu</string>
+    <string name="pay_off_speed">Prędkość spłaty (kwota / minutę)</string>
+    <string name="interests">Odsetki</string>
 </resources>
