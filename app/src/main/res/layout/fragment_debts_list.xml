@@ -16,13 +16,55 @@
         tools:context=".fragment_debts_list.DebtsListFragment">
 
 
-        <ScrollView
-            android:layout_width="268dp"
-            android:layout_height="263dp"
-            app:layout_constraintBottom_toTopOf="@+id/title_text"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_debt_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.426"
-            tools:layout_editor_absoluteX="69dp">
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/coin_icon"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/coin" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/debts_list"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/logo_image"
+            app:layout_constraintStart_toEndOf="@+id/logo_image"
+            app:layout_constraintTop_toTopOf="@+id/logo_image" />
+
+        <ScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="379dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,33 +72,27 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/debtors_list_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
-                    android:text="@{viewModel.debtsString}" />
+                    android:text="Marcin: 100.0_TODO_BIND"
+                    tools:text="Marcin: 100.0" />
+
             </LinearLayout>
         </ScrollView>
 
         <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/summary_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="DebtsList"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="PODSUMOWANIE_TODO_BIND"
+            app:layout_constraintEnd_toStartOf="@+id/create_debt_fab"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView4"
+            tools:text="Podsumowanie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

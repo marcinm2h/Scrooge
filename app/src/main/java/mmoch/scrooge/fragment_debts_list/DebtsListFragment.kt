@@ -33,7 +33,7 @@ class DebtsListFragment : Fragment() {
 
         val action = DebtsListFragmentDirections.actionDebtsListFragmentToCreateEditDebtFragment(1)
 
-        binding.buttonNext.setOnClickListener{
+        binding.createDebtFab.setOnClickListener{
             findNavController().navigate(action)
         }
 
