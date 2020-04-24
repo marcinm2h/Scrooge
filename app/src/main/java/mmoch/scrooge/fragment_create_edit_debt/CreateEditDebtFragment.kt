@@ -1,7 +1,9 @@
 package mmoch.scrooge.fragment_create_edit_debt
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import mmoch.scrooge.DecimalDigitsInputFilter
 import mmoch.scrooge.R
 import mmoch.scrooge.database.DebtDatabase
 import mmoch.scrooge.databinding.FragmentCreateEditDebtBinding
+import mmoch.scrooge.fragment_debts_list.DebtsListFragmentDirections
 
 class CreateEditDebtFragment : Fragment() {
     val args: CreateEditDebtFragmentArgs by navArgs()
@@ -51,8 +55,6 @@ class CreateEditDebtFragment : Fragment() {
             }
         })
 
-
-
         viewModel.startShareIntentEvent.observe(viewLifecycleOwner, Observer { debt ->
             if (debt != null) {
                 val sendIntent: Intent = Intent().apply {
@@ -69,14 +71,35 @@ class CreateEditDebtFragment : Fragment() {
             }
         })
 
+        viewModel.backEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                val action =
+                    CreateEditDebtFragmentDirections.actionCreateEditDebtFragmentToDebtsListFragment()
+                findNavController().navigate(action)
+                viewModel.doneBack()
+            }
+        })
+
+        viewModel.confirmBackEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                AlertDialog.Builder(context)
+                    .setMessage(getString(R.string.dialog_confirm_back))
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.yes)) { dialog, id ->
+                        viewModel.onBack()
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, id ->
+                        dialog.cancel()
+                    }.create().show()
+                viewModel.doneConfirmingBack()
+            }
+        })
+
         binding.simulateButton.setOnClickListener {
             findNavController().navigate(R.id.action_createEditDebtFragment_to_payOffSimulatorFragment)
         }
 
-        binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_createEditDebtFragment_to_debtsListFragment)
-        }
-
+        binding.amountInput.filters =  arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
 
         return binding.root
     }

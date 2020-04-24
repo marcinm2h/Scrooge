@@ -28,6 +28,7 @@
     <string name="debt_update_message">Zaktualizowano dług!</string>
     <string name="alert_dialog">Zaktualizowano dług!</string>
     <string name="dialog_confirm_remove">Czy chcesz usunąć dług?</string>
+    <string name="dialog_confirm_back">Czy chcesz wyjść bez zapisywania zmian?</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="share_debt">Hej %s, przypominam o długu %.2f do spłacenia :)</string>

@@ -45,13 +45,31 @@ class CreateEditDebtViewModel(
         _startShareIntentEvent.value = null
     }
 
+    private val _backEvent = MutableLiveData<Boolean?>()
+
+    val backEvent: LiveData<Boolean?>
+        get() = _backEvent
+
+    fun doneBack() {
+        _backEvent.value = null
+    }
+
+    private val _confirmBackEvent = MutableLiveData<Debt?>()
+
+    val confirmBackEvent: LiveData<Debt?>
+        get() = _confirmBackEvent
+
+    fun doneConfirmingBack() {
+        _confirmBackEvent.value = null
+    }
+
     init {
         uiScope.launch {
             if (debtId != null) {
                 val debtFromDb = requireNotNull(getById(debtId))
                 debt.value = debtFromDb
                 debtorNameInput.value = debtFromDb.debtorName
-                amountInput.value = debtFromDb.amount.toString()
+                amountInput.value = "%.2f".format(debtFromDb.amount)
             }
         }
     }
@@ -60,8 +78,27 @@ class CreateEditDebtViewModel(
         _startShareIntentEvent.value = requireNotNull(debt.value)
     }
 
+    fun onBackWithConfirm() {
+        if (debt.value != null) {
+            val amount = requireNotNull(debt.value).amount
+            val debtorName = requireNotNull(debt.value).debtorName
+            val amountInputValue = amountInput.value?.toDouble()
+            val debtorNameInputValue = debtorNameInput.value
+            if (amount != amountInputValue || debtorName != debtorNameInputValue) {
+                _confirmBackEvent.value = debt.value
+                return
+            }
+        }
+
+        onBack()
+    }
+
+    fun onBack() {
+        _backEvent.value = true
+    }
+
     fun onCreate() {
-        val debtorName = debtorNameInput.value.toString()
+        val debtorName = debtorNameInput.value ?: ""
         val amount = amountInput.value?.toDouble() ?: 0.0 //FIXME: required
 
         uiScope.launch {
@@ -76,7 +113,7 @@ class CreateEditDebtViewModel(
     }
 
     fun onUpdate() {
-        val debtorName = debtorNameInput.value.toString()
+        val debtorName = debtorNameInput.value ?: ""
         val amount = amountInput.value?.toDouble() ?: 0.0 //FIXME: required
 
         uiScope.launch {
