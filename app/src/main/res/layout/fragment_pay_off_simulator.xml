@@ -41,7 +41,7 @@
 
 
         <EditText
-            android:id="@+id/speed_input"
+            android:id="@+id/velocity_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -50,13 +50,15 @@
             android:ems="10"
             android:hint="@string/pay_off_speed"
             android:inputType="numberDecimal"
+            android:text="@={viewModel.velocityInput}"
+            android:enabled="@{!viewModel.simulationStarted}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/debt_info_text" />
 
         <EditText
-            android:id="@+id/interests_input"
+            android:id="@+id/interests_rate_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -65,10 +67,12 @@
             android:ems="10"
             android:hint="@string/interests"
             android:inputType="numberDecimal"
+            android:text="@={viewModel.interestsRateInput}"
+            android:enabled="@{!viewModel.simulationStarted}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/speed_input" />
+            app:layout_constraintTop_toBottomOf="@+id/velocity_input" />
 
         <Button
             android:id="@+id/simulate_button"
@@ -78,6 +82,8 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
             android:text="@string/simulate"
+            android:enabled="@{!viewModel.simulationStarted}"
+            android:onClick="@{() -> viewModel.onStart()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -113,7 +119,7 @@
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/interests_input">
+            app:layout_constraintTop_toBottomOf="@+id/interests_rate_input">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,7 +142,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:text="Marcin: 100.0__TODO__BIND"
+            android:text="@{viewModel.formattedDebt}"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

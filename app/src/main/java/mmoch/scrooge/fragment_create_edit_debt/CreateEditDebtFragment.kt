@@ -41,7 +41,6 @@ class CreateEditDebtFragment : Fragment() {
 
         binding.amountInput.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
 
-
         viewModel.showSnackbarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 Snackbar.make(
@@ -100,6 +99,7 @@ class CreateEditDebtFragment : Fragment() {
                         args.debtId
                     )
                 findNavController().navigate(action)
+                viewModel.doneNavigatingToSimulate()
             }
         })
 

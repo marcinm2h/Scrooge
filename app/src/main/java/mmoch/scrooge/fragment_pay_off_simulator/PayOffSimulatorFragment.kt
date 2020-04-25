@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import mmoch.scrooge.R
 import mmoch.scrooge.database.DebtDatabase
 import mmoch.scrooge.databinding.FragmentPayOffSimulatorBinding
@@ -43,6 +44,17 @@ class PayOffSimulatorFragment : Fragment() {
                 findNavController().navigate(action)
 
                 viewModel.doneNavigatingToEdit()
+            }
+        })
+
+        viewModel.showSnackbarEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.doneShowingSnackbar()
             }
         })
 

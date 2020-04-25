@@ -71,4 +71,9 @@ class DebtsListViewModel(private val database: DebtDao) : ViewModel() {
             database.delete(debt.id)
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }
