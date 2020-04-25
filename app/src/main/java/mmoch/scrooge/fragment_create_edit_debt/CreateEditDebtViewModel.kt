@@ -8,6 +8,8 @@ import kotlinx.coroutines.*
 import mmoch.scrooge.R
 import mmoch.scrooge.database.Debt
 import mmoch.scrooge.database.DebtDao
+import mmoch.scrooge.doubleToString
+import mmoch.scrooge.stringToDouble
 
 class CreateEditDebtViewModel(
     private val database: DebtDao,
@@ -76,7 +78,7 @@ class CreateEditDebtViewModel(
                 val debtFromDb = requireNotNull(getById(debtId))
                 debt.value = debtFromDb
                 debtorNameInput.value = debtFromDb.debtorName
-                amountInput.value = "%.2f".format(debtFromDb.amount)
+                amountInput.value = doubleToString(debtFromDb.amount)
             }
         }
     }
@@ -93,7 +95,7 @@ class CreateEditDebtViewModel(
         if (debt.value != null) {
             val amount = requireNotNull(debt.value).amount
             val debtorName = requireNotNull(debt.value).debtorName
-            val amountInputValue = amountInput.value?.toDouble()
+            val amountInputValue = stringToDouble(amountInput.value)
             val debtorNameInputValue = debtorNameInput.value
             if (amount != amountInputValue || debtorName != debtorNameInputValue) {
                 _confirmBackEvent.value = debt.value
@@ -114,7 +116,7 @@ class CreateEditDebtViewModel(
         }
 
         val debtorName = requireNotNull(debtorNameInput.value)
-        val amount = requireNotNull(amountInput.value).toDouble()
+        val amount = stringToDouble(amountInput.value)
         val newDebt = Debt(debtorName = debtorName, amount = amount)
 
         uiScope.launch {
@@ -132,7 +134,7 @@ class CreateEditDebtViewModel(
         }
 
         val debtorName = requireNotNull(debtorNameInput.value)
-        val amount = requireNotNull(amountInput.value).toDouble()
+        val amount = stringToDouble(amountInput.value)
         val updatedDebt =
             Debt(id = requireNotNull(debtId), debtorName = debtorName, amount = amount)
 

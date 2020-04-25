@@ -2,12 +2,13 @@ package mmoch.scrooge.fragment_pay_off_simulator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import mmoch.scrooge.R
 import mmoch.scrooge.database.Debt
 import mmoch.scrooge.database.DebtDao
+import mmoch.scrooge.doubleToString
+import mmoch.scrooge.stringToDouble
 import java.util.*
 import kotlin.concurrent.timerTask
 import kotlin.math.max
@@ -70,13 +71,17 @@ class PayOffSimulatorViewModel(
         Timer().schedule(timerTask {
             val nextAmount = max(
                 debtAmount.value!!.minus(
-                    velocityInput.value!!.toDouble()
+                    stringToDouble(velocityInput.value)
                 ), 0.0
-            ).let{
-                nextAmount ->
+            ).let { nextAmount ->
                 if (nextAmount > 0) {
-                    val interests = nextAmount.times(interestsRateInput.value!!.toDouble() / 100)
-                        .let { "%.2f".format(it).toDouble() }
+                    val interests = stringToDouble(
+                        doubleToString(
+                            nextAmount.times(
+                                stringToDouble(interestsRateInput.value) / 100
+                            )
+                        )
+                    )
                     accumulatedInterests.postValue(
                         interests.plus(accumulatedInterests.value ?: 0.0)
                     )

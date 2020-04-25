@@ -11,7 +11,7 @@ import mmoch.scrooge.formatSummary
 @BindingAdapter("debtAmount")
 fun TextView.setDebtAmount(item: Debt?) {
     item?.let {
-        text = "%.2f".format(item.amount)
+        text = doubleToString(item.amount)
     }
 }
 
