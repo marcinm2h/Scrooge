@@ -19,6 +19,7 @@ abstract class DebtDatabase : RoomDatabase() {
             if (instance != null) {
                 return instance
             }
+
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
@@ -26,6 +27,7 @@ abstract class DebtDatabase : RoomDatabase() {
                     "sleep_history_database"
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
+
                 return instance
             }
         }

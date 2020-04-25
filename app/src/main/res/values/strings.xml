@@ -25,6 +25,7 @@
     <string name="debtor_name">Nazwa dłużnika</string>
     <string name="debt_amount_hint">Kwota</string>
     <string name="debt_created_message">Utworzono dług!</string>
+    <string name="correct_data">Popraw dane!</string>
     <string name="debt_update_message">Zaktualizowano dług!</string>
     <string name="alert_dialog">Zaktualizowano dług!</string>
     <string name="dialog_confirm_remove">Czy chcesz usunąć dług?</string>

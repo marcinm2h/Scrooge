@@ -18,10 +18,9 @@ import mmoch.scrooge.DecimalDigitsInputFilter
 import mmoch.scrooge.R
 import mmoch.scrooge.database.DebtDatabase
 import mmoch.scrooge.databinding.FragmentCreateEditDebtBinding
-import mmoch.scrooge.fragment_debts_list.DebtsListFragmentDirections
 
 class CreateEditDebtFragment : Fragment() {
-    val args: CreateEditDebtFragmentArgs by navArgs()
+    private val args: CreateEditDebtFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +32,15 @@ class CreateEditDebtFragment : Fragment() {
                 R.layout.fragment_create_edit_debt, container, false
             )
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = DebtDatabase.getInstance(application).debtDao()
-        val debtId = if (args.debtId > 0) args.debtId else null
-        val viewModelFactory = CreateEditDebtViewModelFactory(dataSource, debtId)
+        binding.setLifecycleOwner(this)
+
         val viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(CreateEditDebtViewModel::class.java)
+            createEditDebtViewModel()
 
         binding.viewModel = viewModel
 
-        binding.setLifecycleOwner(this)
+        binding.amountInput.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
+
 
         viewModel.showSnackbarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -95,12 +93,26 @@ class CreateEditDebtFragment : Fragment() {
             }
         })
 
-        binding.simulateButton.setOnClickListener {
-            findNavController().navigate(R.id.action_createEditDebtFragment_to_payOffSimulatorFragment)
-        }
-
-        binding.amountInput.filters =  arrayOf<InputFilter>(DecimalDigitsInputFilter(2))
+        viewModel.navigateToSimulateEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                val action =
+                    CreateEditDebtFragmentDirections.actionCreateEditDebtFragmentToPayOffSimulatorFragment(
+                        args.debtId
+                    )
+                findNavController().navigate(action)
+            }
+        })
 
         return binding.root
+    }
+
+    private fun createEditDebtViewModel(): CreateEditDebtViewModel {
+        val application = requireNotNull(this.activity).application
+        val dataSource = DebtDatabase.getInstance(application).debtDao()
+        val debtId = if (args.debtId > 0) args.debtId else null
+        val viewModelFactory = CreateEditDebtViewModelFactory(dataSource, debtId)
+
+        return ViewModelProviders.of(this, viewModelFactory)
+            .get(CreateEditDebtViewModel::class.java)
     }
 }

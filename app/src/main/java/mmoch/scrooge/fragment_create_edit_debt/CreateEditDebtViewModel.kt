@@ -1,6 +1,5 @@
 package mmoch.scrooge.fragment_create_edit_debt
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -63,6 +62,14 @@ class CreateEditDebtViewModel(
         _confirmBackEvent.value = null
     }
 
+    private val _navigateToSimulateEvent = MutableLiveData<Boolean?>()
+    val navigateToSimulateEvent: LiveData<Boolean?>
+        get() = _navigateToSimulateEvent
+
+    fun doneNavigatingToSimulate() {
+        _navigateToSimulateEvent.value = null
+    }
+
     init {
         uiScope.launch {
             if (debtId != null) {
@@ -72,6 +79,10 @@ class CreateEditDebtViewModel(
                 amountInput.value = "%.2f".format(debtFromDb.amount)
             }
         }
+    }
+
+    fun onSimulate() {
+        _navigateToSimulateEvent.value = true
     }
 
     fun onShare() {
@@ -98,30 +109,47 @@ class CreateEditDebtViewModel(
     }
 
     fun onCreate() {
-        val debtorName = debtorNameInput.value ?: ""
-        val amount = amountInput.value?.toDouble() ?: 0.0 //FIXME: required
-
-        uiScope.launch {
-            val debt = Debt(debtorName = debtorName, amount = amount)
-            insert(debt)
+        if (!validateForm(debtorNameInput.value, amountInput.value)) {
+            return
         }
 
-        // FIXME: onDebtorCreated
+        val debtorName = requireNotNull(debtorNameInput.value)
+        val amount = requireNotNull(amountInput.value).toDouble()
+        val newDebt = Debt(debtorName = debtorName, amount = amount)
+
+        uiScope.launch {
+            insert(newDebt)
+        }
+
         debtorNameInput.value = null
         amountInput.value = null
         _showSnackbarEvent.value = R.string.debt_created_message
     }
 
     fun onUpdate() {
-        val debtorName = debtorNameInput.value ?: ""
-        val amount = amountInput.value?.toDouble() ?: 0.0 //FIXME: required
-
-        uiScope.launch {
-            val debt = Debt(id = requireNotNull(debtId), debtorName = debtorName, amount = amount)
-            update(debt)
+        if (!validateForm(debtorNameInput.value, amountInput.value)) {
+            return
         }
 
+        val debtorName = requireNotNull(debtorNameInput.value)
+        val amount = requireNotNull(amountInput.value).toDouble()
+        val updatedDebt =
+            Debt(id = requireNotNull(debtId), debtorName = debtorName, amount = amount)
+
+        uiScope.launch {
+            update(updatedDebt)
+        }
+
+        debt.value = updatedDebt
         _showSnackbarEvent.value = R.string.debt_update_message
+    }
+
+    private fun validateForm(debtorNameInput: String?, amountInput: String?): Boolean {
+        if (debtorNameInput == null || amountInput == null) {
+            _showSnackbarEvent.value = R.string.correct_data
+            return false
+        }
+        return true
     }
 
     private suspend fun getById(debtId: Int): Debt? {

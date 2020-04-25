@@ -127,6 +127,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:text="@string/simulate"
+            android:onClick="@{() -> viewModel.onSimulate()}"
             app:goneUnless="@{viewModel.editType}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
