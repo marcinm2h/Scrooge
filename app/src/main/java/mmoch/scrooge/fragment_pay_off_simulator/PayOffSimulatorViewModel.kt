@@ -8,6 +8,9 @@ import kotlinx.coroutines.*
 import mmoch.scrooge.R
 import mmoch.scrooge.database.Debt
 import mmoch.scrooge.database.DebtDao
+import java.util.*
+import kotlin.concurrent.timerTask
+import kotlin.math.max
 
 class PayOffSimulatorViewModel(
     private val database: DebtDao,
@@ -25,19 +28,19 @@ class PayOffSimulatorViewModel(
         _navigateToEditEvent.value = null
     }
 
-    private val debt = MutableLiveData<Debt?>(null)
+    val debtAmount = MutableLiveData<Double?>(null)
 
-    val formattedDebt: LiveData<String> = Transformations.map(debt) {
-        "${it?.debtorName}: ${it?.amount}"
-    }
+    val debtorName = MutableLiveData<String?>(null)
 
     val velocityInput = MutableLiveData<String?>(null)
 
     val interestsRateInput = MutableLiveData<String?>(null)
 
+    val accumulatedInterests = MutableLiveData<Double?>(null)
+
     private val _simulationStarted = MutableLiveData<Boolean>(false)
     val simulationStarted: LiveData<Boolean>
-    get() = _simulationStarted
+        get() = _simulationStarted
 
     private val _showSnackbarEvent = MutableLiveData<Int?>()
 
@@ -48,11 +51,11 @@ class PayOffSimulatorViewModel(
         _showSnackbarEvent.value = null
     }
 
-
     init {
         uiScope.launch {
             val debtFromDb = requireNotNull(getById(debtId))
-            debt.value = debtFromDb
+            debtorName.value = debtFromDb.debtorName
+            debtAmount.value = debtFromDb.amount
         }
     }
 
@@ -63,7 +66,42 @@ class PayOffSimulatorViewModel(
         }
     }
 
+    private fun onTick() {
+        Timer().schedule(timerTask {
+            val nextAmount = max(
+                debtAmount.value!!.minus(
+                    velocityInput.value!!.toDouble()
+                ), 0.0
+            ).let{
+                nextAmount ->
+                if (nextAmount > 0) {
+                    val interests = nextAmount.times(interestsRateInput.value!!.toDouble() / 100)
+                        .let { "%.2f".format(it).toDouble() }
+                    accumulatedInterests.postValue(
+                        interests.plus(accumulatedInterests.value ?: 0.0)
+                    )
+                    nextAmount + interests
+                } else {
+                    nextAmount
+                }
+            }
+
+            debtAmount.postValue(
+                nextAmount
+            )
+
+            if (nextAmount > 0) {
+                onTick()
+            }
+
+        }, 1000)
+    }
+
     fun onStart() {
+        onTick()
+    }
+
+    fun onStartButtonClick() {
         if (!validateForm(velocityInput.value, interestsRateInput.value)) {
             return
         }

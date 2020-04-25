@@ -58,6 +58,12 @@ class PayOffSimulatorFragment : Fragment() {
             }
         })
 
+        viewModel.simulationStarted.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                viewModel.onStart()
+            }
+        })
+
         return binding.root
 
     }

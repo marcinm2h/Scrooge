@@ -48,14 +48,14 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
+            android:enabled="@{!viewModel.simulationStarted}"
             android:hint="@string/pay_off_speed"
             android:inputType="numberDecimal"
             android:text="@={viewModel.velocityInput}"
-            android:enabled="@{!viewModel.simulationStarted}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/debt_info_text" />
+            app:layout_constraintTop_toBottomOf="@+id/debt_amount_text" />
 
         <EditText
             android:id="@+id/interests_rate_input"
@@ -78,76 +78,84 @@
             android:id="@+id/simulate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
-            android:text="@string/simulate"
             android:enabled="@{!viewModel.simulationStarted}"
-            android:onClick="@{() -> viewModel.onStart()}"
+            android:onClick="@{() -> viewModel.onStartButtonClick()}"
+            android:text="@string/simulate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/back_button"
-            app:layout_constraintTop_toBottomOf="@+id/summary_scroll"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toEndOf="@+id/back_button" />
 
         <Button
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="32dp"
-            android:text="@string/back"
             android:onClick="@{() -> viewModel.onBack()}"
+            android:text="@string/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/simulate_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/summary_scroll"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <ScrollView
-            android:id="@+id/summary_scroll"
-            android:layout_width="0dp"
-            android:layout_height="128dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/interests_rate_input">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/pay_off_log_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="-100.0 / Odsetki 10.0__TODO_BINF"
-                    tools:text="-100.0 / Odsetki 10.0" />
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/debt_info_text"
+            android:id="@+id/debtor_name_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:text="@{viewModel.formattedDebt}"
+            android:text="@{viewModel.debtorName}"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo_image"
-            tools:text="Marcin: 100.0" />
+            tools:text="Marcin" />
+
+        <TextView
+            android:id="@+id/debt_amount_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{viewModel.debtAmount.toString()}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/debtor_name_text"
+            tools:text="100.00" />
+
+        <TextView
+            android:id="@+id/interests_label_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/interests_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/interests_rate_input" />
+
+        <TextView
+            android:id="@+id/interests_value_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{viewModel.accumulatedInterests.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/interests_label_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

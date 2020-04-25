@@ -17,7 +17,7 @@
     <string name="remind_debtor">Przypomnij dłużnikowi</string>
     <string name="simulate">Symuluj spłatę</string>
     <string name="debt_pay_off_simulation">Symulacja spłaty długu</string>
-    <string name="pay_off_speed">Prędkość spłaty (kwota / minutę)</string>
+    <string name="pay_off_speed">Prędkość spłaty (kwota / sekundę)</string>
     <string name="interests">Odsetki</string>
     <string name="debtor_name_label">Nazwa</string>
     <string name="debt_amount_label">Dług</string>
@@ -33,5 +33,7 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="share_debt">Hej %s, przypominam o długu %.2f do spłacenia :)</string>
+    <string name="interests_accumulated">Łączne odsetki: %.2f</string>
+    <string name="interests_label">Spłacone odsetki</string>
 
 </resources>

@@ -1,9 +1,10 @@
-package mmoch.scrooge.fragment_debts_list
+package mmoch.scrooge
 
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import mmoch.scrooge.database.Debt
 import mmoch.scrooge.formatSummary
 
